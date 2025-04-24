@@ -4,6 +4,8 @@
   "package": "net.snowsign.snowdeath.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "PlayerInventoryMixin",
+    "ItemEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

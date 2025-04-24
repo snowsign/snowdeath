@@ -18,11 +18,7 @@
     ]
   },
   "mixins": [
-    "snowdeath.mixins.json",
-    {
-      "config": "snowdeath.client.mixins.json",
-      "environment": "client"
-    }
+    "snowdeath.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
