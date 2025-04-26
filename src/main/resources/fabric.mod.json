@@ -10,9 +10,6 @@
   "icon": "assets/snowdeath/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "net.snowsign.snowdeath.client.SnowdeathClient"
-    ],
     "main": [
       "net.snowsign.snowdeath.Snowdeath"
     ]

@@ -29,7 +29,6 @@ loom {
     mods {
         register("snowdeath") {
             sourceSet("main")
-            sourceSet("client")
         }
     }
 }
