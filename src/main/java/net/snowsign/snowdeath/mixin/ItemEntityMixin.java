@@ -26,6 +26,8 @@ public abstract class ItemEntityMixin implements MarkedItem {
     @Shadow
     public abstract @Nullable Entity getOwner();
 
+    @Shadow private int itemAge;
+
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void writeMarkedDataToNbt(NbtCompound nbt, CallbackInfo ci) {
         nbt.putShort("DeathCount", (short) this.deathCount);
@@ -44,6 +46,7 @@ public abstract class ItemEntityMixin implements MarkedItem {
             owner instanceof ServerPlayerEntity &&
                 getPlayerDeaths((ServerPlayerEntity) owner) - ((MarkedItem) instance).snowdeath$getDeathCount() < 5
         ) {
+            this.itemAge = 6000; // Prevent overflow
             return;
         }
         instance.discard();
