@@ -11,6 +11,6 @@ class Snowdeath : ModInitializer {
     }
 
     override fun onInitialize() {
-        LOGGER.info("Loaded")
+        LOGGER.info("Snowdeath loaded")
     }
 }
