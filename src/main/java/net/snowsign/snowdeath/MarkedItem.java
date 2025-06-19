@@ -1,6 +1,9 @@
 package net.snowsign.snowdeath;
 
+import java.util.UUID;
+
 public interface MarkedItem {
-    void snowdeath$mark(int deaths);
+    void snowdeath$mark(UUID deceased, int deaths);
+
     int snowdeath$getDeathCount();
 }
