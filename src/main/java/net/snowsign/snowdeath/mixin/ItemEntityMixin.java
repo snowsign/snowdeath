@@ -2,8 +2,9 @@ package net.snowsign.snowdeath.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.snowsign.snowdeath.MarkedItem;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Debug;
@@ -28,17 +29,17 @@ public abstract class ItemEntityMixin implements MarkedItem {
 
     @Shadow private int itemAge;
 
-    @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
-    private void writeMarkedDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        nbt.putShort("DeathCount", (short) this.deathCount);
+    @Inject(method = "writeCustomData", at = @At("HEAD"))
+    private void writeMarkedData(WriteView view, CallbackInfo ci) {
+        view.putShort("DeathCount", (short) this.deathCount);
     }
 
-    @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
-    public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        this.deathCount = nbt.getShort("DeathCount", (short) -1);
+    @Inject(method = "readCustomData", at = @At("HEAD"))
+    public void readMarkedData(ReadView view, CallbackInfo ci) {
+        this.deathCount = view.getShort("DeathCount", (short) -1);
     }
 
-    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ItemEntity;discard()V"))
+    @Redirect(method = "tick", at = @At(value = "INVOKE", ordinal = 1, target = "Lnet/minecraft/entity/ItemEntity;discard()V"))
     public void discardIfNotMarked(ItemEntity instance) {
         Entity owner = instance.getOwner();
 
